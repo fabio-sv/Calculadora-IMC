@@ -29,8 +29,10 @@ public class MainActivity extends AppCompatActivity {
         double imc = peso / (altura * altura);
         editResultado.setText("Imc" + imc);
 
+        if (imc < 18.5){
+            editResultado.setText("Seu IMC é de "+ String.format("%.2f", imc) + ". Você está abaixo do peso.");
 
-        if (imc >= 18.5 && imc <= 24.99){
+        } else if (imc >= 18.5 && imc <= 24.99){
             editResultado.setText("Seu IMC é de "+ String.format("%.2f", imc) + ". Você está em seu peso ideal.");
 
         } else if(imc >= 25 && imc <= 29.99){
