@@ -1,0 +1,73 @@
+package edu.br.unifcv.calculadoradeimc;
+
+import androidx.appcompat.app.AppCompatActivity;
+
+import android.os.Bundle;
+import android.view.View;
+import android.widget.EditText;
+import android.widget.TextView;
+
+public class MainActivity extends AppCompatActivity {
+  
+  /* aqui foram criados os atributos privadas que serão utilizadas para receber os dados de peso e  	altura junto do atributo responsavel por executar a saída de dados. 
+  */
+    private EditText editPeso;  // atributo que recebe o peso
+    private EditText editAltura; // atributo que recebe a altura 
+    private TextView editResultado; // atributo que recebe o resultado
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
+      
+      /* aqui os atributos que foram criados na classe MainActivity estão recebendo o método 
+      findViewById
+      */
+        editPeso = findViewById(R.id.campo_peso); // editPeso recebe o dado do usuário coletado através de uma janela EdiText referenciada pelo Id campo_peso
+      
+        editAltura = findViewById(R.id.campo_altura); // editAltura recebe o dado do usuário coletado através de uma janela EdiText referenciada pelo Id campo_altura.
+      
+        editResultado = findViewById(R.id.txt_resultado); // editResultado recebe o Id de um EditText utilizado para retornar dados 
+   
+    }
+  
+  
+	// aqui foi criado o método para fazer o cálculo com os  dados fornecidos pelo usuário e retornar o IMC
+    public void calcularIMC(View v){
+      
+        double peso = Double.parseDouble(editPeso.getText().toString()); // editPeso esta em formato de texto, portanto seu valor deve ser submetido ao casting para ponto flutuante
+      
+        double altura = Double.parseDouble(editAltura.getText().toString()); // editAltura esta em formato de texto, portanto seu valor deve ser submetido ao casting para ponto flutuante de dupla precisão
+
+        double imc = peso / (altura * altura); // imc rebecebe o resultado do cálculo, peso / altura² 
+      
+		// se imc for menor que 18.5 este bloco será executado
+        if (imc < 18.5){
+            editResultado.setText("Seu IMC é de "+ String.format("%.2f", imc) + ". Você está abaixo do peso.");
+          
+         // se imc for maior ou igual a 18.5, e menor ou igual a 24.99, este bloco será executado
+        } else if (imc >= 18.5 && imc <= 24.99){
+            editResultado.setText("Seu IMC é de "+ String.format("%.2f", imc) + ". Você está em seu peso ideal.");
+          
+		// se imc for maior ou igual a 25, e menor ou igual a 29.99, este bloco será executado
+        } else if(imc >= 25 && imc <= 29.99){
+            editResultado.setText("Seu IMC é de "+ String.format("%.2f", imc) + ". Você está acima do peso.");
+          
+		// se imc for maior ou igual a 30, e menor ou igual a 34.99, este bloco será executado
+        } else if(imc >=30 && imc <= 34.99){
+            editResultado.setText("Seu IMC é de "+ String.format("%.2f", imc) + ". Você está em obesidade grau I.");
+          
+		// se imc for maior ou igual a 35, e menor ou igual a 39.99, este bloco será executado
+        } else if (imc >=35 && imc <= 39.99){
+            editResultado.setText("Seu IMC é de "+ String.format("%.2f", imc) + ". Você está em obesidade grau II.");
+          
+		// se imc for maior ou igual a 40 este bloco será executado
+        } else if (imc >= 40){
+            editResultado.setText("Seu IMC é de "+ String.format("%.2f", imc) + ". Você está em obesidade grau III");
+        }
+      	
+        // se o usuário informar algum valor inválido este bloco será executado
+        else{
+            editResultado.setText("VALOR INVALIDO");
+        }
+    }
